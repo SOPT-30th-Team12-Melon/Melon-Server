@@ -4,12 +4,7 @@ import { body } from "express-validator/check";
 
 const router: Router = Router();
 
-router.post('/movies/:movieId', [
-    body('title').notEmpty(),
-    body('writer').notEmpty(),
-    body('content').notEmpty()
-], CommentController.createReview);
-
-router.get('/movies/:movieId', CommentController.getReviews);
+router.post('/', CommentController.createComment);
+router.get('/album/:albumId', CommentController.getComment);
 
 export default router; 
