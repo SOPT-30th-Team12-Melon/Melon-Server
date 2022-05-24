@@ -1,4 +1,7 @@
-export interface AlbumInfo {
+import mongoose from "mongoose";
+
+export interface AlbumCreateDto {
+  albumId: mongoose.Types.ObjectId;
   albumImage: string;
   albumTitle: string;
   albumDate: Date;

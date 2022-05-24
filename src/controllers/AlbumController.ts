@@ -2,20 +2,40 @@ import express, { Request, Response } from "express";
 import statusCode from "../modules/statusCode";
 import message from "../modules/responseMessage";
 import util from "../modules/util";
+import { AlbumService } from "../services";
+const tempMessage = "temp message";
 
-const tempMessage = "temp message"
-
+/**
+ *  @route GET /album/:albumId
+ *  @desc Get Album Comment
+ *  @access Public
+ */
 const getAlbum = async (req: Request, res: Response) => {
-    try {
-        const data = {test:"Test"}
-        
-        res.status(statusCode.CREATED).send(util.success(statusCode.OK, tempMessage, data));
-    } catch (error) {
-        console.log(error);
-        res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR));
-    }
-}
+  const { albumId } = req.params;
+
+  try {
+    const data = await AlbumService.getAlbum(albumId);
+    if (!data)
+      res
+        .status(statusCode.NOT_FOUND)
+        .send(util.fail(statusCode.NOT_FOUND, message.NOT_FOUND));
+
+    res
+      .status(statusCode.OK)
+      .send(util.success(statusCode.OK, message.READ_Album_SUCCESS, data));
+  } catch (error) {
+    console.log(error);
+    res
+      .status(statusCode.INTERNAL_SERVER_ERROR)
+      .send(
+        util.fail(
+          statusCode.INTERNAL_SERVER_ERROR,
+          message.INTERNAL_SERVER_ERROR
+        )
+      );
+  }
+};
 
 export default {
-    getAlbum
-}
+  getAlbum,
+};

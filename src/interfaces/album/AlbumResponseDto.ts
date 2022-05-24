@@ -1,4 +1,4 @@
-export interface AlbumInfo {
+export interface AlbumResponseDto {
   albumImage: string;
   albumTitle: string;
   albumDate: Date;
