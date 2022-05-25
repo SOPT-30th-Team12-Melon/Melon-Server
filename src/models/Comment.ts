@@ -18,7 +18,7 @@ const CommentSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
   },
-  body: {
+  commentBody: {
     type: Number,
   },
   likeNum: {
