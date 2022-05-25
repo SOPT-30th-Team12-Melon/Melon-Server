@@ -19,7 +19,7 @@ const CommentSchema = new mongoose.Schema({
     type: Date,
   },
   commentBody: {
-    type: Number,
+    type: String,
   },
   likeNum: {
     type: Number,
