@@ -2,32 +2,69 @@ import express, { Request, Response } from "express";
 import statusCode from "../modules/statusCode";
 import message from "../modules/responseMessage";
 import util from "../modules/util";
+import { CommentCreateDto } from "../interfaces/comment/CommentCreateDto";
+const { validationResult } = require("express-validator");
+import CommentService from "../services/CommentService";
 
-const tempMessage = "temp message"
+const tempMessage = "temp message";
 
 const getComment = async (req: Request, res: Response) => {
-    try {
-        const data = {test:"Test"}
-        
-        res.status(statusCode.CREATED).send(util.success(statusCode.OK, tempMessage, data));
-    } catch (error) {
-        console.log(error);
-        res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR));
-    }
-}
+  try {
+    const data = { test: "Test" };
 
+    res
+      .status(statusCode.CREATED)
+      .send(util.success(statusCode.OK, tempMessage, data));
+  } catch (error) {
+    console.log(error);
+    res
+      .status(statusCode.INTERNAL_SERVER_ERROR)
+      .send(
+        util.fail(
+          statusCode.INTERNAL_SERVER_ERROR,
+          message.INTERNAL_SERVER_ERROR
+        )
+      );
+  }
+};
+
+/**
+ *  @route POST /comment/:albumId
+ *  @desc Create Comment
+ *  @access Public
+ */
 const createComment = async (req: Request, res: Response) => {
-    try {
-        const data = {test:"Test"}
-        
-        res.status(statusCode.CREATED).send(util.success(statusCode.CREATED, tempMessage, data));
-    } catch (error) {
-        console.log(error);
-        res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR));
-    }
-}
+  const error = validationResult(req);
+  if (!error.isEmpty()) {
+    return res
+      .status(statusCode.BAD_REQUEST)
+      .send(util.fail(statusCode.BAD_REQUEST, message.BAD_REQUEST));
+  }
+  const commentCreateDto: CommentCreateDto = req.body;
+  const { albumId } = req.params;
+
+  try {
+    const data = await CommentService.createComment(albumId, commentCreateDto);
+
+    res
+      .status(statusCode.CREATED)
+      .send(
+        util.success(statusCode.CREATED, message.CREATE_COMMENT_SUCCESS, data)
+      );
+  } catch (error) {
+    console.log(error);
+    res
+      .status(statusCode.INTERNAL_SERVER_ERROR)
+      .send(
+        util.fail(
+          statusCode.INTERNAL_SERVER_ERROR,
+          message.INTERNAL_SERVER_ERROR
+        )
+      );
+  }
+};
 
 export default {
-    getComment,
-    createComment,
-}
+  getComment,
+  createComment,
+};

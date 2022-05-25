@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
+import { AlbumInfo } from "../album/AlbumInfo";
 
-export interface CommentInfo {
-  albumId: mongoose.Types.ObjectId;
+export interface CommentResponseDto {
+  albumId: AlbumInfo;
   author: string;
   image: string;
   createdAt: Date;

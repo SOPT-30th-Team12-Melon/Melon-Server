@@ -12,15 +12,19 @@ const AlbumSchema = new mongoose.Schema({
   },
   albumDate: {
     type: Date,
+    required: true,
   },
   albumScope: {
     type: Number,
+    required: true,
   },
   numberPeople: {
     type: Number,
+    required: true,
   },
   singerName: {
     type: String,
+    required: true,
   },
   singerImage: {
     type: String,
