@@ -9,7 +9,17 @@ const createComment = async (
   commentCreateDto: CommentCreateDto
 ): Promise<PostBaseResponseDto> => {
   try {
-    const comment = new Comment(commentCreateDto, albumId);
+    const comment = new Comment({
+      albumId: albumId,
+      author: commentCreateDto.author,
+      image: commentCreateDto.image,
+      createdAt: commentCreateDto.createdAt,
+      commentBody: commentCreateDto.commentBody,
+      likeNum: commentCreateDto.likeNum,
+      hateNum: commentCreateDto.hateNum,
+      commentNum: commentCreateDto.commentNum,
+      total: commentCreateDto.total,
+    });
 
     await comment.save();
 
