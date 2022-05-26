@@ -18,6 +18,6 @@ router.post(
   ],
   CommentController.createComment
 );
-router.get("/album/:albumId", CommentController.getComment);
+router.get("/album/:albumId", CommentController.getComments);
 
 export default router;

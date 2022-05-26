@@ -34,6 +34,38 @@ const createComment = async (
   }
 };
 
+const getComments = async (albumId: string): Promise<CommentResponseDto[]> => {
+  try {
+    const comments = await Comment.find({
+      albumId: albumId,
+    });
+
+    const data = await Promise.all(
+      comments.map((comment: any) => {
+        const result = {
+          albumId: comment.albumId,
+          author: comment.author,
+          image: comment.image,
+          createdAt: comment.createdAt,
+          commentBody: comment.commentBody,
+          likeNum: comment.likeNum,
+          hateNum: comment.hateNum,
+          commentNum: comment.commentNum,
+          total: comment.total,
+        };
+
+        return result;
+      })
+    );
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
 export default {
   createComment,
+  getComments,
 };

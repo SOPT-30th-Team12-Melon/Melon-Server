@@ -8,13 +8,20 @@ import CommentService from "../services/CommentService";
 
 const tempMessage = "temp message";
 
-const getComment = async (req: Request, res: Response) => {
+/**
+ *  @route GET /comment/album/:albumId
+ *  @desc Get Comment
+ *  @access Public
+ */
+const getComments = async (req: Request, res: Response) => {
+  const { albumId } = req.params;
+
   try {
-    const data = { test: "Test" };
+    const data = await CommentService.getComments(albumId);
 
     res
-      .status(statusCode.CREATED)
-      .send(util.success(statusCode.OK, tempMessage, data));
+      .status(statusCode.OK)
+      .send(util.success(statusCode.OK, message.READ_REVIEW_SUCCESS, data));
   } catch (error) {
     console.log(error);
     res
@@ -65,6 +72,6 @@ const createComment = async (req: Request, res: Response) => {
 };
 
 export default {
-  getComment,
+  getComments,
   createComment,
 };
