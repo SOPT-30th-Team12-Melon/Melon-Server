@@ -16,6 +16,10 @@ const message = {
 
   //앨범
   READ_Album_SUCCESS: "앨범 조회 성공",
+
+  //댓글
+  CREATE_COMMENT_SUCCESS: "댓글 작성 성공",
+  READ_COMMENT_SUCCESS: "댓글 조회 성공",
 };
 
 export default message;
