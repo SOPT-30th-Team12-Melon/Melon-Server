@@ -4,7 +4,7 @@ import { body } from "express-validator/check";
 
 const router: Router = Router();
 
-router.get('/', AlbumController.getAlbums);
+router.get('/recent', AlbumController.getAlbums);
 router.get('/:albumId', AlbumController.getAlbum);
 
 export default router; 
