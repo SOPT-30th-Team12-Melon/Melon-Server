@@ -3,7 +3,37 @@ import statusCode from "../modules/statusCode";
 import message from "../modules/responseMessage";
 import util from "../modules/util";
 import { AlbumService } from "../services";
-const tempMessage = "temp message";
+
+/**
+ *  @route GET /album?recent={type}
+ *  @desc Get Album Comment
+ *  @access Public
+ */
+ const getAlbums = async (req: Request, res: Response) => {
+  const { type } = req.query;
+
+  try {
+    const data = await AlbumService.getAlbums();
+    if (!data)
+      res
+        .status(statusCode.NOT_FOUND)
+        .send(util.fail(statusCode.NOT_FOUND, message.NOT_FOUND));
+
+    res
+      .status(statusCode.OK)
+      .send(util.success(statusCode.OK, message.READ_Album_SUCCESS, data));
+  } catch (error) {
+    console.log(error);
+    res
+      .status(statusCode.INTERNAL_SERVER_ERROR)
+      .send(
+        util.fail(
+          statusCode.INTERNAL_SERVER_ERROR,
+          message.INTERNAL_SERVER_ERROR
+        )
+      );
+  }
+};
 
 /**
  *  @route GET /album/:albumId
@@ -38,4 +68,5 @@ const getAlbum = async (req: Request, res: Response) => {
 
 export default {
   getAlbum,
+  getAlbums
 };
