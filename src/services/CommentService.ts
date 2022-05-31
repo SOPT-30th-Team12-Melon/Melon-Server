@@ -6,16 +6,12 @@ import Comment from "../models/Comment";
 
 const createComment = async (
   albumId: string,
-  userId: string,
   commentCreateDto: CommentCreateDto
 ): Promise<PostBaseResponseDto> => {
   try {
     const comment = new Comment({
       albumId: albumId,
-      userId: {
-        nicKname: commentCreateDto.userId?.nickName,
-        image: commentCreateDto.userId?.image,
-      },
+      userId: commentCreateDto.userId,
       commentBody: commentCreateDto.commentBody,
     });
 
@@ -38,11 +34,15 @@ const getComments = async (albumId: string): Promise<CommentResponseDto[]> => {
       albumId: albumId,
     });
 
+    console.log(comments)
+
     const data = await Promise.all(
-      comments.map((comment: any) => {
+      comments.map((comment: CommentInfo) => {
         const result = {
           albumId: comment.albumId,
           userId: comment.userId,
+          nickname : "test",
+          image : "test",
           commentBody: comment.commentBody,
         };
 
