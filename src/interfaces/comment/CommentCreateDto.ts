@@ -3,6 +3,6 @@ import { UserInfo } from "../user/UserInfo";
 
 export interface CommentCreateDto {
   albumId: mongoose.Types.ObjectId;
-  userId: UserInfo;
+  userId: mongoose.Types.ObjectId;
   commentBody: string;
 }
