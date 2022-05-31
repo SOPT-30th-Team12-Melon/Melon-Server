@@ -8,30 +8,12 @@ const CommentSchema = new mongoose.Schema({
     required: true,
     ref: "Album",
   },
-  author: {
-    type: String,
-    required: true,
-  },
-  image: {
-    type: String,
-  },
-  createdAt: {
-    type: Date,
+  userId: {
+    nickName: { type: String },
+    image: { type: String },
   },
   commentBody: {
     type: String,
-  },
-  likeNum: {
-    type: Number,
-  },
-  hateNum: {
-    type: Number,
-  },
-  commentNum: {
-    type: Number,
-  },
-  total: {
-    type: Number,
   },
 });
 

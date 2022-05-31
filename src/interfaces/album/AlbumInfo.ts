@@ -15,6 +15,6 @@ export interface AlbumInfo {
   albumType: string;
   albumGenre: string;
   albumCompany: string;
-  Company: string;
+  company: string;
   albumContent: string;
 }
