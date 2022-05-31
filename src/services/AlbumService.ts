@@ -3,24 +3,25 @@ import { AlbumCreateDto } from "../interfaces/album/AlbumCreateDto";
 import { AlbumInfo } from "../interfaces/album/AlbumInfo";
 import { AlbumResponseDto } from "../interfaces/album/AlbumResponseDto";
 import Album from "../models/Album";
-// const createAlbum = async (
-//   movieCreateDto: MovieCreateDto
-// ): Promise<PostBaseResponseDto> => {
-//   try {
-//     const movie = new Movie(movieCreateDto);
 
-//     await movie.save();
+const createAlbum = async (
+  albumCreateDto: AlbumCreateDto
+): Promise<PostBaseResponseDto> => {
+  try {
+    const album = new Album(albumCreateDto);
 
-//     const data = {
-//       _id: movie._id,
-//     };
+    await album.save();
 
-//     return data;
-//   } catch (error) {
-//     console.log(error);
-//     throw error;
-//   }
-// };
+    const data = {
+      _id: album._id,
+    };
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
 
 const getAlbum = async (albumId: string): Promise<AlbumResponseDto | null> => {
   try {
@@ -36,4 +37,5 @@ const getAlbum = async (albumId: string): Promise<AlbumResponseDto | null> => {
 
 export default {
   getAlbum,
+  createAlbum,
 };

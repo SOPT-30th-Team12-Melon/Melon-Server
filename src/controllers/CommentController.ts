@@ -15,7 +15,6 @@ const tempMessage = "temp message";
  */
 const getComments = async (req: Request, res: Response) => {
   const { albumId } = req.params;
-
   try {
     const data = await CommentService.getComments(albumId);
 
@@ -48,10 +47,15 @@ const createComment = async (req: Request, res: Response) => {
       .send(util.fail(statusCode.BAD_REQUEST, message.BAD_REQUEST));
   }
   const commentCreateDto: CommentCreateDto = req.body;
+  const { userId } = req.body;
   const { albumId } = req.params;
 
   try {
-    const data = await CommentService.createComment(albumId, commentCreateDto);
+    const data = await CommentService.createComment(
+      albumId,
+      userId,
+      commentCreateDto
+    );
 
     res
       .status(statusCode.CREATED)
