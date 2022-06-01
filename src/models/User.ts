@@ -4,11 +4,9 @@ import { UserInfo } from "../interfaces/user/UserInfo";
 const UserSchema = new mongoose.Schema({
   nickName: {
     type: String,
-    required: true,
   },
   image: {
     type: String,
-    required: true,
   },
 });
 

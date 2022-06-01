@@ -4,5 +4,7 @@ import { UserInfo } from "../user/UserInfo";
 export interface CommentCreateDto {
   albumId: mongoose.Types.ObjectId;
   userId: mongoose.Types.ObjectId;
+  nickName: string;
+  image: string;
   commentBody: string;
 }

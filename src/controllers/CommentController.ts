@@ -5,6 +5,7 @@ import util from "../modules/util";
 import { CommentCreateDto } from "../interfaces/comment/CommentCreateDto";
 const { validationResult } = require("express-validator");
 import CommentService from "../services/CommentService";
+import User from "../models/User";
 
 const tempMessage = "temp message";
 
@@ -15,9 +16,9 @@ const tempMessage = "temp message";
  */
 const getComments = async (req: Request, res: Response) => {
   const { albumId } = req.params;
-
+  const { userId } = req.body;
   try {
-    const data = await CommentService.getComments(albumId);
+    const data = await CommentService.getComments(albumId, userId);
 
     res
       .status(statusCode.OK)
@@ -51,10 +52,7 @@ const createComment = async (req: Request, res: Response) => {
   const { albumId } = req.params;
 
   try {
-    const data = await CommentService.createComment(
-      albumId,
-      commentCreateDto
-    );
+    const data = await CommentService.createComment(albumId, commentCreateDto);
 
     res
       .status(statusCode.CREATED)

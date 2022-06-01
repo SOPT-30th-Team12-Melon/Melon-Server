@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import config from "../config";
 import Album from "../models/Album";
 import Comment from "../models/Comment";
+import User from "../models/User";
 
 const connectDB = async () => {
   try {
@@ -16,8 +17,10 @@ const connectDB = async () => {
     });
     Comment.createCollection().then(function (collection) {
       console.log("Comment Collection is created!");
-    })
-    
+    });
+    User.createCollection().then(function (collection) {
+      console.log("User");
+    });
   } catch (err: any) {
     console.error(err.message);
     process.exit(1);
