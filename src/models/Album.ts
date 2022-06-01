@@ -56,7 +56,7 @@ const AlbumSchema = new mongoose.Schema({
   albumCompany: {
     type: String,
   },
-  Company: {
+  company: {
     type: String,
   },
   albumContent: {

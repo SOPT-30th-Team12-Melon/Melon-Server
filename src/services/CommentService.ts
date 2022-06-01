@@ -3,7 +3,10 @@ import { CommentCreateDto } from "../interfaces/comment/CommentCreateDto";
 import { CommentResponseDto } from "../interfaces/comment/CommentResponseDto";
 import { CommentInfo } from "../interfaces/comment/CommentInfo";
 import Comment from "../models/Comment";
-
+import User from "../models/User";
+import { nextTick } from "process";
+import { UserInfo } from "../interfaces/user/UserInfo";
+import { userInfo } from "os";
 const createComment = async (
   albumId: string,
   commentCreateDto: CommentCreateDto
@@ -11,18 +14,11 @@ const createComment = async (
   try {
     const comment = new Comment({
       albumId: albumId,
-      author: commentCreateDto.author,
-      image: commentCreateDto.image,
-      createdAt: commentCreateDto.createdAt,
+      userId: commentCreateDto.userId,
       commentBody: commentCreateDto.commentBody,
-      likeNum: commentCreateDto.likeNum,
-      hateNum: commentCreateDto.hateNum,
-      commentNum: commentCreateDto.commentNum,
-      total: commentCreateDto.total,
     });
 
     await comment.save();
-
     const data = {
       _id: comment._id,
     };
@@ -38,20 +34,18 @@ const getComments = async (albumId: string): Promise<CommentResponseDto[]> => {
   try {
     const comments = await Comment.find({
       albumId: albumId,
-    });
-
+    }).populate("userId", "nickName image");
     const data = await Promise.all(
-      comments.map((comment: any) => {
+      comments.map((comment: CommentInfo) => {
+        // userId를 가지고 user의 정보를 가져와서
+        // nickname하고 image에 넣어주기.
+        // user = await User.find({userId : userId}) 이런식으로 user 정보 가져오기
         const result = {
           albumId: comment.albumId,
-          author: comment.author,
+          userId: comment.userId,
+          nickName: comment.nickName,
           image: comment.image,
-          createdAt: comment.createdAt,
           commentBody: comment.commentBody,
-          likeNum: comment.likeNum,
-          hateNum: comment.hateNum,
-          commentNum: comment.commentNum,
-          total: comment.total,
         };
 
         return result;
@@ -64,7 +58,6 @@ const getComments = async (albumId: string): Promise<CommentResponseDto[]> => {
     throw error;
   }
 };
-
 export default {
   createComment,
   getComments,

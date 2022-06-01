@@ -15,6 +15,7 @@ const message = {
   READ_REVIEW_SUCCESS: "리뷰 조회 성공",
 
   //앨범
+  CREATE_ALBUM_SUCCESS: "앨범 작성 성공",
   READ_Album_SUCCESS: "앨범 조회 성공",
 
   //댓글
