@@ -19,7 +19,7 @@ const connectDB = async () => {
       console.log("Comment Collection is created!");
     });
     User.createCollection().then(function (collection) {
-      console.log("User");
+      console.log("User Collection is created!");
     });
   } catch (err: any) {
     console.error(err.message);

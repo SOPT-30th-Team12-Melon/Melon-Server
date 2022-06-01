@@ -35,7 +35,6 @@ const getComments = async (albumId: string): Promise<CommentResponseDto[]> => {
     const comments = await Comment.find({
       albumId: albumId,
     }).populate("userId", "nickName image");
-    console.log(comments);
     const data = await Promise.all(
       comments.map((comment: CommentInfo) => {
         // userId를 가지고 user의 정보를 가져와서
