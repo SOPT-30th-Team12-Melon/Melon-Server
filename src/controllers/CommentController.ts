@@ -18,7 +18,7 @@ const getComments = async (req: Request, res: Response) => {
   const { albumId } = req.params;
   const { userId } = req.body;
   try {
-    const data = await CommentService.getComments(albumId, userId);
+    const data = await CommentService.getComments(albumId);
 
     res
       .status(statusCode.OK)
